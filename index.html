@@ -35,11 +35,20 @@
 								 lineNumbers: true
 						 });
 						 editor.setValue('E = mc^2 \\\\\nm = \\frac{m_0}{\\sqrt{1-\\frac{v^2}{c^2}}}');
+						 $('textarea').on('keyup', e => {
+								 const key = e.keyCode || e.charCode;
+
+								 if (key == 8 || key == 46) {
+										 const code = editor.getValue();
+										 $('#view').html(`$${code}$`);
+										 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+								 }
+						 });
 						 $('textarea').on('input', e => {
 								 const code = editor.getValue();
 								 $('#view').html(`$${code}$`);
 								 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-				 });
+						 });
 				 });
 				</script>
 		</head>
