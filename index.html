@@ -30,6 +30,14 @@
 
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 				<script>
+				 function htmlspecialchars(str){
+						 return (str + '').replace(/&/g,'&amp;')
+															.replace(/"/g,'&quot;')
+															.replace(/'/g,'&#039;')
+															.replace(/</g,'&lt;')
+															.replace(/>/g,'&gt;'); 
+				 }
+
 				 $(function() {
 						 let editor = CodeMirror.fromTextArea(document.getElementsByTagName('textarea')[0], {
 								 lineNumbers: true
@@ -40,13 +48,13 @@
 
 								 if (key == 8 || key == 46) {
 										 const code = editor.getValue();
-										 $('#view').html(`$${code}$`);
+										 $('#view').html(htmlspecialchars(`$${code}$`));
 										 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 								 }
 						 });
 						 $('textarea').on('input', e => {
 								 const code = editor.getValue();
-								 $('#view').html(`$${code}$`);
+								 $('#view').html(htmlspecialchars(`$${code}$`));
 								 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 						 });
 				 });
